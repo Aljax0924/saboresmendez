@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabores de La Sierra Méndez</title>
+    <style>
+        :root {
+            --forest-green: #2c5f2d;
+            --white: #ffffff;
+            --terracotta: #c97c5d;
+            --light-green: #97bc62;
+            --cream: #fffaeb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--cream);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--forest-green);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--terracotta);
+        }
+        
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("images/banner.jpeg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            margin-bottom: 60px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--terracotta);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #b66c4d;
+        }
+        
+        /* Sections common */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--forest-green);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--terracotta);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Products Section */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--forest-green);
+        }
+        
+        .product-info p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .product-info .btn {
+            font-size: 14px;
+            padding: 8px 20px;
+        }
+        
+        /* Mission & Vision Section */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .mission-card, .vision-card {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission-card h3, .vision-card h3 {
+            color: var(--forest-green);
+            font-size: 24px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .mission-card h3::after, .vision-card h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--terracotta);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .mission-card::before, .vision-card::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(201, 124, 93, 0.1);
+            border-radius: 50%;
+            top: -50px;
+            right: -50px;
+        }
+        
+        /* History Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--forest-green);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--white);
+            border: 4px solid var(--terracotta);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--white);
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .year {
+            font-weight: 700;
+            color: var(--terracotta);
+            margin-bottom: 10px;
+        }
+        
+        /* Impact Section */
+        .map.container {
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("images/local.jpeg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            margin-bottom: 60px;
+        }
+        
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--forest-green);
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 40px;
+        }
+        
+        .contact-form {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-form h3 {
+            color: var(--forest-green);
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+        }
+        
+        /* Blog Preview */
+        .blog-preview {
+            padding: 60px 0;
+            background-color: var(--light-green);
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .blog-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .blog-content {
+            padding: 20px;
+        }
+        
+        .blog-content h3 {
+            margin-bottom: 10px;
+            color: var(--forest-green);
+        }
+        
+        .blog-content p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .blog-date {
+            font-size: 14px;
+            color: var(--terracotta);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--forest-green);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background-color: var(--terracotta);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--terracotta);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0;
+                height: 92vh;
+                top: 8vh;
+                background-color: var(--forest-green);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+                z-index: 5;
+            }
+            
+            .nav-links li {
+                opacity: 0;
+                margin: 20px 0;
+            }
+            
+            .burger {
+                display: block;
+            }
+            
+            .nav-active {
+                transform: translateX(0%);
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0%;
+            }
+            
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Sabores de La Sierra Méndez</a>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#Nosotros">Sobre Nosotros</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#historia">Nuestra Historia</a></li>
+                    <li><a href="#impacto">Testimonios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <div class="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>Sabores de La Sierra Méndez: Tradición y sabor que crece contigo.</h1>
+            <p>De nuestra tierra a tu mesa, desde 1990</p>
+            <a href="#productos" class="btn">Descubre nuestros productos</a>
+        </div>
+    </section>
+    
+    <!-- Mission and Vision Section -->
+    <section id="Nosotros" style="background-color: var(--white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Nosotros</h2>
+                <p>Comprometidos con la calidad y el desarrollo sostenible</p>
+            </div>
+            
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <h3>Misión</h3>
+                    <p>Producir y comercializar lácteos de alta calidad, preservando las tradiciones familiares y promoviendo el desarrollo sostenible de las comunidades de Cundinamarca y Boyacá, mediante innovación, respeto al medio ambiente y compromiso con el bienestar de nuestros empleados y clientes.</p>
+                </div>
+                
+                <div class="vision-card">
+                    <h3>Visión</h3>
+                    <p>Para 2035, consolidarnos como la empresa láctea más innovadora y sostenible de Colombia, con presencia en 20 municipios de Cundinamarca y Boyacá, y un portafolio de productos que celebre la tradición mientras nutre a las nuevas generaciones.</p>
+                </div>
+            </div>
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <h3>Valores</h3>
+                    <p><strong>Familia:</strong> Mantener el legado intergeneracional como pilar central.</p>
+                    <p><strong>Calidad:</strong> Productos frescos, sin conservantes artificiales.</p>
+                    <p><strong>Sostenibilidad:</strong> Uso eficiente de recursos hídricos y energéticos.</p>
+                    <p><strong>Innovación:</strong> Desarrollo de nuevos productos lácteos.</p>
+                    <p><strong>Comunidad:</strong> Apoyo a pequeños agricultores y educación nutricional.</p>
+                </div>
+                
+                <div class="vision-card">
+                    <h3>Colores</h3>
+                    <p><strong>Verde bosque:</strong> Representa la naturaleza y los pastos de Ubalá.</p>
+                    <p><strong>Blanco:</strong> Pureza de los productos lácteos.</p>
+                    <p><strong>Terracota:</strong> Conexión con la tierra y tradición campesina.</p>
+                    <p><strong>Amarillo oro:</strong> Prosperidad y calidad premium.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="productos">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Productos</h2>
+                <p>Elaborados con el mayor cuidado y las mejores materias primas</p>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Yogurt Griego Andino -->
+                <div class="product-card">
+                    <div class="product-img" style="background-image: url('images/yogurt.png');"></div>
+                    <div class="product-info">
+                        <h3>Yogurt Griego Andino</h3>
+                        <p><strong>Ingredientes:</strong> Leche fresca de vaca, cultivos probióticos, mora deshidratada, hojas de menta.</p>
+                        <p><strong>Beneficios:</strong> Alto en proteína, sin azúcar añadida. Fortalece el sistema inmunológico.</p>
+                        <a href="#" class="btn">Encuentra en tu municipio</a>
+                    </div>
+                </div>
+                
+                <!-- Queso Fresco Artesanal -->
+                <div class="product-card">
+                    <div class="product-img" style="background-image: url('images/Queso-fresco.png');"></div>
+                    <div class="product-info">
+                        <h3>Queso Fresco Artesanal</h3>
+                        <p><strong>Ingredientes:</strong> Leche fresca de vaca, cuajo natural, sal marina.</p>
+                        <p><strong>Beneficios:</strong> Rico en calcio y proteínas. Ideal para ensaladas y postres.</p>
+                        <a href="#" class="btn">Encuentra en tu municipio</a>
+                    </div>
+                </div>
+                
+                <!-- Leche Entera -->
+                <div class="product-card">
+                    <div class="product-img" style="background-image: url('images/leche.png');"></div>
+                    <div class="product-info">
+                        <h3>Leche Entera</h3>
+                        <p><strong>Ingredientes:</strong> 100% leche fresca de vaca.</p>
+                        <p><strong>Beneficios:</strong> Rica en vitaminas A y D, calcio y proteínas. Pasteurizada con métodos tradicionales.</p>
+                        <a href="#" class="btn">Encuentra en tu municipio</a>
+                    </div>
+                </div>
+                
+                <!-- Queso Añejo -->
+                <div class="product-card">
+                    <div class="product-img" style="background-image: url('images/queso-aniejo.png');"></div>
+                    <div class="product-info">
+                        <h3>Queso Añejo</h3>
+                        <p><strong>Ingredientes:</strong> Leche fresca de vaca, cultivos lácteos, sal marina.</p>
+                        <p><strong>Beneficios:</strong> Madurado por 12 meses, sabor intenso y complejo. Excelente fuente de calcio.</p>
+                        <a href="#" class="btn">Encuentra en tu municipio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="historia" style="background-color: var(--white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestra Historia</h2>
+                <p>Más de 70 años de tradición y excelencia</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="year">1950</div>
+                        <h3>Los inicios</h3>
+                        <p>La familia Méndez comienza con una pequeña producción de quesos en su hacienda familiar.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="year">1968</div>
+                        <h3>Primera sucursal</h3>
+                        <p>Se abre la primera tienda en el municipio de San Antonio, vendiendo directamente a los consumidores.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="year">1985</div>
+                        <h3>Expansión regional</h3>
+                        <p>Sabores de La Sierra Méndez comienza a distribuir sus productos en toda la región, abriendo 3 nuevas sucursales.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="year">2000</div>
+                        <h3>Modernización</h3>
+                        <p>Implementación de tecnologías que respetan los métodos tradicionales mientras mejoran la calidad.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="year">2015</div>
+                        <h3>Certificación orgánica</h3>
+                        <p>Todos nuestros procesos reciben certificación orgánica, reforzando nuestro compromiso con la calidad.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="year">2023</div>
+                        <h3>Lanzamiento de la app</h3>
+                        <p>Nuestra aplicación móvil permite a los clientes comprar productos y conocer más sobre nuestros procesos.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="year">2030</div>
+                        <h3>Futuro sostenible</h3>
+                        <p>Alcanzamos la neutralidad de carbono en todas nuestras operaciones, con 12 sucursales a nivel nacional.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impacto">
+        <div class="container">
+            <div class="section-title">
+                <h2>Testimonios</h2>
+            </div>
+            
+            
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p>"Trabajar con Sabores de La Sierra Méndez ha transformado mi pequeña finca. Ahora producimos leche de mejor calidad y tenemos un comprador estable que valora nuestro trabajo."</p>
+                    <div class="testimonial-author">- María Gómez, Agricultora desde 2010</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"Gracias a la capacitación que recibimos, hemos implementado prácticas sostenibles que benefician a nuestros animales y al medio ambiente."</p>
+                    <div class="testimonial-author">- Carlos Mendoza, Ganadero asociado</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"Mi familia ha sido proveedora de Sabores de La Sierra Méndez por tres generaciones. Su compromiso con el pago justo ha permitido que nuestros hijos puedan estudiar."</p>
+                    <div class="testimonial-author">- Juana Pérez, Familia ganadera</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" style="background-color: var(--light-green);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contacto</h2>
+                <p>Estamos aquí para atenderte</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h3>Para Distribuidores</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="company">Nombre de la empresa</label>
+                            <input type="text" id="company" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dist-email">Correo electrónico</label>
+                            <input type="email" id="dist-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="region">Región de interés</label>
+                            <select id="region">
+                                <option value="">Selecciona una región</option>
+                                <option value="cundinamarca">Cundinamarca</option>
+                                <option value="boyaca">Boyacá</option>
+                                <option value="norte">Norte</option>
+                                <option value="sur">Sur</option>
+                                <option value="este">Este</option>
+                                <option value="oeste">Oeste</option>
+                                <option value="central">Central</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Enviar solicitud</button>
+                    </form>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Formulario de Empleo</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Nombre completo</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emp-email">Correo electrónico</label>
+                            <input type="email" id="emp-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="position">Puesto de interés</label>
+                            <select id="position">
+                                <option value="">Selecciona un puesto</option>
+                                <option value="produccion">Producción</option>
+                                <option value="calidad">Control de calidad</option>
+                                <option value="distribucion">Distribución</option>
+                                <option value="ventas">Ventas</option>
+                                <option value="administracion">Administración</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Experiencia</label>
+                            <textarea id="experience"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="cv">Adjuntar CV</label>
+                            <input type="file" id="cv">
+                        </div>
+                        <button type="submit" class="btn">Enviar solicitud</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
